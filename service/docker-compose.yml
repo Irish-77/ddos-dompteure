@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:  
+  api:
+    image: "registry.gitlab.com/ronho1/ddos-service"
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    restart: on-failure
+  
+  pgadmin:
+    image: dpage/pgadmin4
+    depends_on:
+      - db
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@linuxhint.com
+      PGADMIN_DEFAULT_PASSWORD: secret
+      PGADMIN_LISTEN_PORT: 80
+    ports:
+      - "8080:80"
+    links:
+      - "db:pgsql-server"
+
+  db:
+    image: "postgres"
+    hostname: postgres
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 1234
+      PGDATA: /var/lib/postgresql/data
+    ports:
+      - "5432:5432"
