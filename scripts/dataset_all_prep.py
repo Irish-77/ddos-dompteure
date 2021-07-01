@@ -43,7 +43,7 @@ def pipeline(df, output_file):
 
     #PCA
     scaler_path = Path('./models/std_scaler.transformer')
-    if scaler_path.is_file():
+    if scaler_path.exists():
         scaler = load(scaler_path)
     else:
         scaler = StandardScaler()
@@ -52,7 +52,7 @@ def pipeline(df, output_file):
     dump(scaler, scaler_path)
 
     pca_path = Path('./models/pca.transformer')
-    if pca_path.isfile():
+    if pca_path.exists():
         pca = load(pca_path)
     else:
         pca = PCA(n_components='mle')
@@ -75,7 +75,7 @@ def pipeline(df, output_file):
     df_computed = df[category_vars].compute()
 
     encoder_path = Path('./models/one_hot_encoder.transformer')
-    if encoder_path.isfile():
+    if encoder_path.exists():
         encoder = load(encoder_path)
     else:
         encoder = OneHotEncoder(sparse=False)
