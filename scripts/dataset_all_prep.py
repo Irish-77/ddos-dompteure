@@ -65,7 +65,7 @@ def pipeline(df, output_file):
         col_names.append(f'PC-{i}')
     principalDf = pd.DataFrame(data = principalComponents, columns = col_names)
     df_label = df['Label'].compute()
-    df = pd.concat([principalDf, df_label.reset_index()['Label']], axis = 1)
+    df_pca = pd.concat([principalDf, df_label.reset_index()['Label']], axis = 1)
     del(df_label)
 
     #One-Hot-Encoding
